@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from '@react-three/fiber';
 import './App.css';
+import Points from './components/Points';
+import Lights from './components/Lights';
+import OriginCube from './components/OriginCube';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Canvas
+        camera={{
+          fov: 75,
+          aspect: 2,
+          near: 0.1,
+          far: 1000,
+          position: [0,0,20],
+          rotation: [0,0,0]
+        }}
+      > 
+          <color attach="background" args={["#161c24"]}/>
+          <Lights/>
+          <Points/>
+          <OriginCube/>
+          <OrbitControls/>
+      </Canvas>
+
     </div>
   );
 }
