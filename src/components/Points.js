@@ -5,9 +5,11 @@ const Points = () => {
     const positions = new Float32Array(
         [-5,0,0, 
           2,2,2, 
+          1,1,1,
           5,0,0]);
     const colors = new Float32Array(
         [1,0.5,0.5,
+         1,0.5,0.5,
          1,0.5,0.5,
          1,0.5,0.5]);
 
