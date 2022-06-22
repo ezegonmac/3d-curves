@@ -1,5 +1,5 @@
 {
-  "name": "mandelbulb",
+  "name": "3d-curves",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -4,6 +4,7 @@ import './App.css';
 import Lights from './components/Lights';
 import Points from './components/Points';
 import SpherePoints from './components/SpherePoints';
+import BulbPoints from './components/BulbPoints';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Lights/>
           {/* <CircunferencePoints radius={5} z={0}/> */}
           {/* <SpherePoints radius={2} position={[0,0,0]}/> */}
+          <BulbPoints />
           <Points/>
           <OrbitControls/>
       </Canvas>
