@@ -6,12 +6,10 @@ class BulbPoints extends React.Component {
 
     constructor(props) {
         super(props);
-    
-        const numPoints = 100;
 
         this.positions = this.getPoints();
         console.log(this.positions)
-        this.colors = this.getColors();
+        this.colors = this.getColors(this.positions);
         console.log(this.colors)
     }
 
@@ -37,7 +35,7 @@ class BulbPoints extends React.Component {
                 <pointsMaterial 
                     attach="material" 
                     vertexColors 
-                    size={0.15} 
+                    size={0.2} 
                     sizeAttenuation={false} 
                     color={0xffffff}
                 />
@@ -57,7 +55,7 @@ class BulbPoints extends React.Component {
 
         const scale = 6;
 
-        const DIM = 256;
+        const DIM = 190;
         const maxIterations = 10;
         const n = 8; //order
         const limitDistance = 2;
@@ -114,21 +112,32 @@ class BulbPoints extends React.Component {
         return points.flat();
     }
     
-    getColors() {
-    
-        const DIM = 100;
+    getColors(points) {
+        // const max = Math.SQRT2 * Math.max(...points);
+        // const min = max/7;
+        const max = 7;
+        const min = 5;
+
+        console.log(max)
+        console.log(min)
 
         const colors = [];
-        for(let i=0; i < DIM**3; i++) {
+        for(let i=0; i < points.length/3; i++) {
             const iIndex = i*3;
 
-            const x = 1;
-            const y = 1;
-            const z = 1;
-    
-            colors[iIndex] = x;
-            colors[iIndex+1] = y;
-            colors[iIndex+2] = z;
+            const x = points[iIndex];
+            const y = points[iIndex+1];
+            const z = points[iIndex+2];
+
+            const module = Math.sqrt(x**2, y**2, z**2);
+            const k = (module-min)/(max-min); //normalize
+
+            const r = k;
+            const g = k;
+            const b = k;
+            colors[iIndex] = r;
+            colors[iIndex+1] = g;
+            colors[iIndex+2] = b;
         }
     
         return Float32Array.from(colors);
