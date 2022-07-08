@@ -1,14 +1,14 @@
 import React from 'react';
 import * as THREE from 'three';
 
-class CircunferencePoints extends React.Component {
+class SpherePoints extends React.Component {
 
     constructor(props) {
         super(props);
     
-        const numPoints = 100;
+        const numPoints = 65 * 15;
 
-        this.positions = this.getPoints(props.radius, props.z, numPoints);
+        this.positions = this.getPoints(props.radius, props.position, numPoints);
         console.log(this.positions)
         this.colors = this.getColors(numPoints);
         console.log(this.colors)
@@ -44,34 +44,42 @@ class CircunferencePoints extends React.Component {
         );
     }
 
-    getPoints(radius, z, numPoints) {
+    getPoints(radius, position, numPoints) {
     
-        const points = this.getCircunferencePointsArray(radius, z, numPoints);
+        const points = this.getSpherePointsArray(radius, position, numPoints);
     
         return Float32Array.from(points);
     }
     
-    getCircunferencePointsArray(radius, z, numPoints) {
+    getSpherePointsArray(radius, position, numPoints) {
         const array = []
     
         const a = radius;
-        const b = z;
     
-        // ( a*cos(u), a*sin(u), b )
-        for(let i=0; i <= numPoints-1; i++) {
-            const j = i*3;
-
-            const u = (i/numPoints)*(2*Math.PI); // 0 <= u <= 2pi
-
-            const x = a * Math.cos(u);
-            const y = a * Math.sin(u);
-            const z = b;
+        // ( cos(v)*cos(u), sin(u)*cos(v), sin(v) )
+        const limit = Math.floor( Math.sqrt(numPoints-1) );
+        for(let i=0; i <= limit; i++) {
             
-            array[j] = x.toFixed(5);
-            array[j+1] = y.toFixed(5);
-            array[j+2] = z.toFixed(5);
+            const u = (i/limit)*(2*Math.PI); // 0 <= u <= 2pi
+            
+            const iIndex = i*3;
+
+            for(let j=0; j <= limit; j++) {
+
+                const v = (j/limit)*(Math.PI) - Math.PI/2; // -pi/2 <= v <= pi/2
+                
+                const jIndex = j*limit*3;
+                
+                const x = a* Math.cos(u) * Math.cos(v) + position[0];
+                const y = a* Math.sin(u) * Math.cos(v) + position[1];
+                const z = a* Math.sin(v)               + position[2];
+                
+                array[iIndex+jIndex] = x.toFixed(5);
+                array[iIndex+jIndex+1] = y.toFixed(5);
+                array[iIndex+jIndex+2] = z.toFixed(5);
+            }
         }
-    
+        
         return array;
     }
     
@@ -79,16 +87,19 @@ class CircunferencePoints extends React.Component {
     
         const colors = [];
     
-        for(let i=0; i <= numPoints-1; i++) {
-            const j = i*3;
+        const limit = Math.floor( Math.sqrt(numPoints-1) );
+        const iLimit = (limit+1)**2;
+
+        for(let i=0; i <= iLimit; i++) {
+            const iIndex = i*3;
 
             const x = 1;
             const y = 1;
             const z = 1;
     
-            colors[j] = x;
-            colors[j+1] = y;
-            colors[j+2] = z;
+            colors[iIndex] = x;
+            colors[iIndex+1] = y;
+            colors[iIndex+2] = z;
         }
     
         return Float32Array.from(colors);
@@ -96,4 +107,4 @@ class CircunferencePoints extends React.Component {
     
 }
 
-export default CircunferencePoints;
+export default SpherePoints;
