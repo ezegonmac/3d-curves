@@ -2,3 +2,10 @@
     height: 100vh;
     overflow: hidden;
 }
+
+.title {
+    position: absolute;
+    z-index: 1;
+    margin: 0.5em;
+    color: whitesmoke;
+}
