@@ -11,6 +11,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="title">Mandelbulb</h1>
+      <h2 className="loader">It may take a little to load...</h2>
       <Canvas
         camera={{
           fov: 75,
