@@ -2,7 +2,7 @@
   "name": "3d-curves",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ezegonmac.github.io",
+  "homepage": "https://ezegonmac.github.io/3d-curves/",
   "dependencies": {
     "@react-three/drei": "^9.4.2",
     "@react-three/fiber": "^8.0.11",
